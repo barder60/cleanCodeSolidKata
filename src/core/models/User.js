@@ -1,4 +1,6 @@
+const { find, get, assign } = require('lodash')
 const { storage } = require('./../initializeModels')
+const { userBookLimit } = require('./../../ui/error/error')
 
 class UserAuth {
     constructor(user) {
@@ -6,7 +8,7 @@ class UserAuth {
     }
 
     verifyIdCredentials() {
-
+        return true
     }
 }
 
@@ -28,6 +30,8 @@ class User {
         this.id = id
         this.settings = new UserSettings(this)
     }
+
+
 }
 
 const createUserInstance = (id) => {

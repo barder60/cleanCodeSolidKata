@@ -11,17 +11,14 @@ const createUser = (id) => {
     const userExist = find(users, { 'id': id })
     
     if (userExist) {
-        userAlreadyExist(id)
-        return
+        
+        return userAlreadyExist(id)
     }
     
     const newUser = createUserInstance(id)
 
     users.push(newUser)
 }
-
-
-
 
 module.exports = {
     createUser
