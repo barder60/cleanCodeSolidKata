@@ -10,7 +10,7 @@ const createUser = (users, id) => {
 }
 
 const createBook = (books, id) => {
-    const bookExist = find(books, { 'id': id})
+    const bookExist = find(books, {'id': id})
 
     if (bookExist) {
 
@@ -18,5 +18,6 @@ const createBook = (books, id) => {
 }
 
 module.exports = {
-    createUser
+    createUser,
+    createBook
 }

@@ -1,51 +1,65 @@
 var readlineSync = require('readline-sync')
-const { filter, split, get, isNull, isEmpty } = require('lodash')
+const { filter, split, get, isEmpty, replace } = require('lodash')
 
 const { createUser, createBook } = require('../core/action/add')
 
 const actions = () => {
     const createUserMenu = (id) => {
+        console.log(`createUser activate with id: ${id}`)
         createUser(id)
     }
 
     const createBookMenu = (id) => {
+        console.log(`createBook activate with id: ${id}`)
         createBook(id)
     }
 
     return new Map([
-        [/^createUser_\d+$/, createUserMenu],
-        [/^createBook_\d+$/, createBookMenu]
+        [/^createUser_\d+/gi, createUserMenu],
+        [/^createBook_\d+/gi, createBookMenu]
     ])
 }
 
 const splitActionValue = (choice) => {
-    const splitChoice = split(choice, "_", 1)
+    const splitChoice = split(choice, "_")
     const label = get(splitChoice, 0)
-    const value = get(splitChoice, 1) 
+    const value = get(splitChoice, 1)
     
     return { label, value }
 }
 
-const menuRenderActions = () => {
-    return ""
+const menuRenderActions = (actions) => {
+    let menu = ""
+    const keys = actions().keys()
+    
+    for (let key of keys) {
+        menu += replace(get(splitActionValue(key), 'label'), '/^', '')
+        menu += "\n"
+    }
+
+    return menu
 }
 
 const menuActions = () => {
     const userInput = readlineSync.question('Your action:')
     const { label, value } = splitActionValue(userInput)
-
-    const action = filter(actions, (key, _) => {
-        key.test(`${label}_${value}`)
+    
+    const action = filter([...actions()], function([key, _]) {
+        return key.test(`${label}_${value}`)
     })
 
     if (isEmpty(action)) {
         console.log("Sorry you miss written the action")
         menuHome()
     }
+
+    action.forEach(([_, action]) => {
+        action.call(this, value)
+    })
 }
 
 const menuHome = () => {
-    menuRenderActions()
+    console.log(menuRenderActions(actions))
     menuActions()
 }
 
