@@ -1,4 +1,6 @@
 
+const { storage } = require('./../initializeModels')
+
 const createUser = (id) => {
     const users = get(storage, 'users')
     const userExist = find(users, { 'id': id })

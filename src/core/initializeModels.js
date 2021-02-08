@@ -1,6 +1,20 @@
 const fs = require('fs')
 const { get } = require('lodash')
-const { config } = require('./storage')
+
+const config = {
+    users: {
+        path:'./storage/users.json',
+        encoding: 'utf-8'
+    },
+    books: {
+        path:'./storage/books.json',
+        encoding: 'utf-8'
+    },
+    library: {
+        path:'./storage/library.json',
+        encoding: 'utf-8'
+    }
+}
 
 const initializeUser = () => {
     const userPath = get(config,'users.path')
@@ -38,7 +52,8 @@ const initializeModels = () => {
     return { users, books, library }
 }
 
+const storage = initializeModels()
 
 module.exports = {
-    initializeModels
+    storage
 }
