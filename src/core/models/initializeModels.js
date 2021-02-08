@@ -1,23 +1,12 @@
 const fs = require('fs')
 const { get } = require('lodash')
-
-const config = {
-    users: {
-        path:'./storage/users.json',
-        encoding: 'utf-8'
-    },
-    books: {
-        path:'./storage/books.json',
-        encoding: 'utf-8'
-    }
-}
+const { config } = require('../storage')
 
 const initializeUser = () => {
     const userPath = get(config,'users.path')
     const userEncoding = get(config, 'user.encoding')
     const fileText = fs.readFileSync(userPath, userEncoding)
     const users = JSON.parse(fileText)
-    console.log(users)
 
     return users
 }
