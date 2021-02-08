@@ -1,15 +1,17 @@
-// const { } = require('../../ui/')
-const { find } = require('lodash')
+const { find, get } = require('lodash')
+const { storage } = require('../storage')
 
-const createUser = (users, id) => {
+const createUser = (id) => {
+    const users = get(storage, 'users')
     const userExist = find(users, { 'id': id })
     
     if (userExist) {
-
+        
     }
 }
 
-const createBook = (books, id) => {
+const createBook = (id) => {
+    const books = get(storage, 'books')
     const bookExist = find(books, {'id': id})
 
     if (bookExist) {
