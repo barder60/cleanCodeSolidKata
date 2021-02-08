@@ -18,7 +18,6 @@ const createUser = (id) => {
     const newUser = createUserInstance(id)
 
     users.push(newUser)
-    // assign(users, newUser)
 }
 
 

@@ -41,5 +41,6 @@ const initializeModels = () => {
 const storage = initializeModels()
 
 module.exports = {
-    storage
+    storage, 
+    config
 }

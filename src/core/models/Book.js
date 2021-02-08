@@ -1,5 +1,15 @@
 const { storage } = require('./../initializeModels')
 
+class Book {
+    constructor(id) {
+        this.id = id
+    }
+}
+
+const createBookInstance = (id) => {
+    return new Book(id)
+}
+
 const updateBook = () => {
 
 }
@@ -28,4 +38,5 @@ module.exports = {
     findBooks,
     updateBook,
     updateBooks,
+    createBookInstance
 }

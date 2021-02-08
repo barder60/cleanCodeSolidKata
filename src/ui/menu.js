@@ -1,10 +1,17 @@
 let readlineSync = require('readline-sync')
-const { filter, split, get, isEmpty, replace, isEqual } = require('lodash')
+const { filter, split, get, isEmpty, replace, isEqual, forEach, forIn } = require('lodash')
 
 const { createBook } = require('../core/action/Book')
 const { createUser } = require('../core/action/User')
+const { saveStorageToFile } = require('./../core/saveStorage')
 const { storage } = require('./../core/initializeModels')
 
+const actionsUi = () => {
+    return [
+        "command to write: createUser_idUser",
+        "command to write: createBook_idBook"
+    ]
+}
 const actions = () => {
     const createUserMenu = (id) => {
         console.log(`createUser activate with id: ${id}`)
@@ -33,21 +40,17 @@ const splitActionValue = (choice) => {
 const menuRenderActions = (actions) => {
     console.log("write: $actions_$id")
     console.log("actions possible: ")
-    const keys = actions().keys()
     
-    for (let key of keys) {
-        console.log(replace(get(splitActionValue(key), 'label'), '/^', ''))    
-    }
-}
-
-const saveAndQuit = () => {
-
+    
+    forEach(actionsUi(), actionUi => {
+        console.log(actionUi)
+    })
 }
 
 const menuActions = (userInput) => {
     
     if(isEqual(userInput, "Q")) {
-        return saveAndQuit()
+        return menuRenderQuit()
     }
     const { label, value } = splitActionValue(userInput)
     
@@ -69,6 +72,7 @@ const menuActions = (userInput) => {
 
 const menuRenderQuit = () => {
     console.log(`Press Q to quit`)
+    saveStorageToFile()
 }
 
 const menuHome = () => {
