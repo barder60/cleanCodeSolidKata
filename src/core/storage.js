@@ -1,4 +1,4 @@
-const { initializeModels } = require('./models/initializeModels')
+const { initializeModels } = require('./initializeModels')
 
 const storage = initializeModels()
 
@@ -9,6 +9,10 @@ const config = {
     },
     books: {
         path:'./storage/books.json',
+        encoding: 'utf-8'
+    },
+    library: {
+        path:'./storage/library.json',
         encoding: 'utf-8'
     }
 }

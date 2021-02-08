@@ -1,6 +1,7 @@
 let readlineSync = require('readline-sync')
 const { filter, split, get, isEmpty, replace } = require('lodash')
-const { createUser, createBook } = require('../core/action/add')
+const { createBook } = require('../core/action/Book')
+const { createUser } = require('../core/action/User')
 
 const actions = () => {
     const createUserMenu = (id) => {
