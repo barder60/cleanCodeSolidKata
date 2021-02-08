@@ -1,7 +1,7 @@
-// const { initializeEmptyModels } = require('')
+const { initializeModels } = require('./initializaseur/initializeModels')
 const { menuHome } = require('../ui/menu')
 const startApp = () => {
-    const users = new Map()
+    initializeModels()
     menuHome()
 }
 
