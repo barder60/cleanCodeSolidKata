@@ -1,5 +1,5 @@
 const userAlreadyExist = (id) => {
-    console.log(`User: ${id} already exist in users`)
+    console.log(`Error -> User: ${id} already exist in users`)
 }
 
 

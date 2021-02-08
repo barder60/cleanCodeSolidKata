@@ -1,5 +1,5 @@
 const { find, get } = require('lodash')
-const { storage } = require('./../initializeModels') 
+const { storage } = require('./../initializeModels')
 
 const updateBook = () => {
 

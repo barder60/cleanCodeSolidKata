@@ -1,7 +1,9 @@
 let readlineSync = require('readline-sync')
-const { filter, split, get, isEmpty, replace } = require('lodash')
+const { filter, split, get, isEmpty, replace, isEqual } = require('lodash')
+
 const { createBook } = require('../core/action/Book')
 const { createUser } = require('../core/action/User')
+const { storage } = require('./../core/initializeModels')
 
 const actions = () => {
     const createUserMenu = (id) => {
@@ -29,19 +31,24 @@ const splitActionValue = (choice) => {
 }
 
 const menuRenderActions = (actions) => {
-    let menu = ""
+    console.log("write: $actions_$id")
+    console.log("actions possible: ")
     const keys = actions().keys()
     
     for (let key of keys) {
-        menu += replace(get(splitActionValue(key), 'label'), '/^', '')
-        menu += "\n"
+        console.log(replace(get(splitActionValue(key), 'label'), '/^', ''))    
     }
-
-    return menu
 }
 
-const menuActions = () => {
-    const userInput = readlineSync.question('Your action:')
+const saveAndQuit = () => {
+
+}
+
+const menuActions = (userInput) => {
+    
+    if(isEqual(userInput, "Q")) {
+        return saveAndQuit()
+    }
     const { label, value } = splitActionValue(userInput)
     
     const action = filter([...actions()], function([key, _]) {
@@ -56,11 +63,21 @@ const menuActions = () => {
     action.forEach(([_, action]) => {
         action.call(this, value)
     })
+
+    menuHome()
+}
+
+const menuRenderQuit = () => {
+    console.log(`Press Q to quit`)
 }
 
 const menuHome = () => {
-    console.log(menuRenderActions(actions))
-    menuActions()
+    menuRenderQuit()
+    menuRenderActions(actions)
+    console.log(storage)
+    const userInput = readlineSync.question('Your action:')
+
+    menuActions(userInput)
 }
 
 module.exports = {

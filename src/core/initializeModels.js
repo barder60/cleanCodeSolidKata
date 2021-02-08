@@ -9,10 +9,6 @@ const config = {
     books: {
         path:'./storage/books.json',
         encoding: 'utf-8'
-    },
-    library: {
-        path:'./storage/library.json',
-        encoding: 'utf-8'
     }
 }
 
@@ -34,22 +30,12 @@ const initializeBooks = () => {
     return books
 }
 
-const initializeLibrary = () => {
-    const libraryPath = get(config, 'library.path')
-    const libraryEncoding = get(config, 'library.encoding')
-    const libraryText = fs.readFileSync(libraryPath, libraryEncoding)
-    const library = JSON.parse(libraryText)
-
-    return library
-}
-
 
 const initializeModels = () => {
     const users = initializeUser()
     const books = initializeBooks()
-    const library = initializeLibrary()
     
-    return { users, books, library }
+    return { users, books }
 }
 
 const storage = initializeModels()
